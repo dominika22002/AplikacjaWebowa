@@ -1,0 +1,103 @@
+﻿@page
+@model WebApplication1.Pages.Movies.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<p>
+    <input type="checkbox" name="title" id="title" checked />
+    <label for="title">Title</label>
+    &emsp;
+    <input type="checkbox" name="realised" id="realised" checked/>
+    <label for="realised">Realised</label>
+    &emsp;
+    <input type="checkbox" name="runningTime" id="runningTime" checked/>
+    <label for="runningTime">RunningTime</label>
+    &emsp;
+    <input type="checkbox" name="budget" id="budget" checked/>
+    <label for="budget">Budget</label>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="viewTitle">
+                @Html.DisplayNameFor(model => model.charakter[0].Title)
+            </th>
+            <th  class="viewReleased">
+                @Html.DisplayNameFor(model => model.charakter[0].Released)
+            </th>
+            <th class="viewRunningTime">
+                @Html.DisplayNameFor(model => model.charakter[0].RunningTime)
+            </th>
+            <th class="viewBudget">
+                @Html.DisplayNameFor(model => model.charakter[0].Budget)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.charakter) {
+        <tr>
+            <td class="viewTitle">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class="viewReleased">
+                @Html.DisplayFor(modelItem => item.Released)
+            </td>
+            <td class="viewRunningTime">
+                @Html.DisplayFor(modelItem => item.RunningTime) min
+            </td>
+            <td class="viewBudget">
+                @Html.DisplayFor(modelItem => item.Budget) mln
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script>
+    var simpleText = "hello_world";
+    var finalSplitText = simpleText.split("_");
+    var splitText = finalSplitText[0];
+
+    window.onload = function() {
+        document.getElementById("myLink").innerHTML=splitText;
+    } 
+
+    const title = document.getElementById('title')
+    const realised = document.getElementById('realised')
+    const runningTime = document.getElementById('runningTime')
+    const budget = document.getElementById('budget')
+    var viewTitle = document.getElementsByClassName('viewTitle')
+    var viewReleased = document.getElementsByClassName('viewReleased')
+    var viewRunningTime = document.getElementsByClassName('viewRunningTime')
+    var viewBudget = document.getElementsByClassName('viewBudget')
+    window.setInterval('getdata()', 50);
+    var numberOfElements = viewBudget.length
+
+    function getdata()
+    {
+        for (var i = 0; i < numberOfElements; i++) 
+        {
+            viewTitle[i].hidden =  !title.checked
+            viewReleased[i].hidden =  !realised.checked
+            viewRunningTime[i].hidden =  !runningTime.checked
+            viewBudget[i].hidden =  !budget.checked
+        }
+    }
+    
+
+</script>
